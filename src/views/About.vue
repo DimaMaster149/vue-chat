@@ -3,7 +3,7 @@
     <div class="container">
       <div class="col-lg-6 offset-lg-3">
         <div v-if="ready">
-          <p v-for="user in info">{{user.username}} {{user.type}}</p>
+          <p v-for="(user, index) in info" :key="index">{{user.username}} {{user.type}}</p>
         </div>
 
         <div v-if="!ready">
@@ -30,7 +30,7 @@
           </div>
           <ul class="list-group list-group-flush text-right">
             <small v-if="typing" class="text-white">{{typing}} is typing</small>
-            <li class="list-group-item" v-for="message in messages">
+            <li class="list-group-item" v-for="(message, index) in messages" :key="index">
               <span :class="{'float-left':message.type === 1}">
                 {{message.message}}
                 <small>:{{message.user}}</small>
