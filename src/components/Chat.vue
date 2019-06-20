@@ -1,6 +1,6 @@
 <template>
   <div>
-    <message :name="userName"/>
+    <message @show-details="showDetails($event)" :name="userName"/>
   </div>
 </template>
 
@@ -20,26 +20,6 @@ export default {
     showDetails() {
       console.log("show details");
     }
-  }
-};
-</script>
-
-<style lang="scss" scoped>
-</style>
-
-
-
-<template>
-  <div>{{ message }}</div>
-</template>
-
-<script>
-export default {
-  name: "Message",
-  data() {
-    return {
-      message: "hello world"
-    };
   }
 };
 </script>
