@@ -1,31 +1,43 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from "axios"
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    firstName: '',
-    lastName: ''
+    messages: [],
+    connections: [],
+    user: {},
+    users: []
   },
   actions: {
-    fetchUser({
-      commit
-    }) {
-      axios.get("https://randomuser.me/api/").then(res => {
-        commit("setName", res.data.results.user);
-      })
+    setUser({ commit }, user) {
+      commit('setUser', user)
+      return new Promise((res, rej) => {
+        res(user)
+      }) 
     }
   },
   mutations: {
-    setUserData(state, user) {
-      state.firstName = user.firstName;
-      state.lastName = user.lastName
+    setUser(state, user) {
+      state.user = user;
+    },
+    addUser(state, user) {
+      state.users.push(user)
+    },
+    deleteUser(state, user) {
+      state.users = state.users.filter(username => username !== user)
+    },
+    clearUser(state) {
+      state.user = {}
+    },
+    setConnections(state, connections) {
+      state.connections = connections;
+    },
+    addMessage(state, msg) {
+      state.messages.push(msg)
+    },
+    deleteMessage(state, msg) {
+      state.messages = state.messages.filter(message => message.id !== msg.id)
     }
   },
-  getters: {
-    fullName: (state) => {
-      return `${state.firstName} ${state.lastName}`;
-    }
-  }
 })
