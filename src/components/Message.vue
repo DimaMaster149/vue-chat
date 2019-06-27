@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex flex-row">
     {{messageInfo.user}}: {{messageInfo.message}}
   </div>
 </template>
