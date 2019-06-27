@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center items-center w-full h-full">
+  <div @keyup.enter="logIn($event)" class="flex justify-center items-center w-full h-full">
     <div class="flex flex-col w-84 h-full mt-20 px-4 py-8 border border-grey-darker-50 shadow-card-hover">
       <base-input class="my-1" label="Username" v-model="username"/>
       <base-input class="my-1" type="email" label="Email" v-model="email"/>
