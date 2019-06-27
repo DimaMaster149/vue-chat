@@ -13,9 +13,9 @@ $green-disabled: rgb(115,230,163);
 
 .btn {
     @apply inline-flex justify-center items-center
-           min-w-48 h-10 px-4 py-1
-           text-4 font-semibold leading-none whitespace-no-wrap
-           rounded-normal;
+        min-w-48 h-10 px-4 py-1
+        text-4 font-semibold leading-none whitespace-no-wrap
+        rounded-normal;
 
     &:disabled,
     &.--disabled {

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full pl-1">
+  <div class="flex flex-col w-full">
     <label
       class="text-left mb-1"
       @click.prevent.stop="focus()"
@@ -7,7 +7,7 @@
       v-text="label">
     </label>
     <input ref="input"
-      class="border border-cyan-dark outline-none"
+      class="pl-1 border border-cyan-dark outline-none"
       :placeholder="label"
       @input="$emit('input', $event.target.value);"
       :type="type"

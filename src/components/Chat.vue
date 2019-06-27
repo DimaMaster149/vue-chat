@@ -1,38 +1,35 @@
 <template>
-  <div class="card mt-3">
-    <div class="card-body">
-      <div class="card-title">
-        <h3>Chat Group</h3>
-        <hr>
+  <div class="flex flex-col w-full h-full py-4 px-10">
+    <div class="flex flex-row w-full h-full border border-apple-green">
+      <div class="flex w-4/5 py-2">
+      <message v-for="(msg, index) in messages" :messageInfo="msg" :key="index"></message>
       </div>
-      <div class="card-body">
-          <div class="messages" v-for="(msg, index) in messages" :key="index">
-            <message :messageInfo="msg"></message>
-          </div>
+      <div class="w-1/5 py-2 border-l border-apple-green">
+        Online
       </div>
     </div>
-    <div class="card-footer">
-      <form @submit.prevent="sendMessage">
-        <div class="gorm-group">
-          <label for="user">User:</label>
-          <input type="text" v-model="user.username" class="form-control">
-        </div>
-          <div class="gorm-group pb-3">
-            <label for="message">Message:</label>
-            <input type="text" v-model="message" class="form-control">
-          </div>
-          <button type="submit" class="btn btn-success">Send</button>
-      </form>
+    <div class="flex flex-row w-full">
+      <base-input class="w-4/5 leading-loose text-4" v-model="message"/>
+      <button 
+        :keyup.enter="sendMessage($event)" 
+        @click="sendMessage($event)" 
+        class="btn --primary --small"
+      >
+        Send
+      </button>
     </div>
   </div>
 </template>
 
 <script>
 import socket from "../services/SocketService"
+import BaseInput from "./lib/BaseInput"
 import Message from "./Message"
+
 export default {
   components: {
-    Message
+    Message,
+    BaseInput
   },
   data() {
     return {
@@ -42,7 +39,6 @@ export default {
   },
   methods: {
     sendMessage(e) {
-      e.preventDefault();
       console.log(this.socket, 'socket')
       this.socket.emit('SEND_MESSAGE', {
         user: this.user.username,

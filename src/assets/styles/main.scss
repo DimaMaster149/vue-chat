@@ -1,15 +1,13 @@
 @charset "utf-8";
 
-@tailwind base;
-
-@tailwind components;
-
+//block
 @import "chat";
 @import "user-board";
+
+//components
 @import "custom";
 @import "buttons";
 
-@tailwind utilities;
 
 // .table-loader {
 //   top: 0;
