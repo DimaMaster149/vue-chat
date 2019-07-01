@@ -10,11 +10,13 @@
   "dependencies": {
     "axios": "^0.19.0",
     "core-js": "^2.6.5",
+    "firebase": "^6.2.4",
     "socket.io-client": "^2.2.0",
     "tailwindcss": "^1.0.4",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vue-swatches": "^1.0.3",
+    "vuefire": "^2.0.0",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

@@ -15,4 +15,7 @@ io.on('connection', function (socket) {
     socket.on('ADD_USER', function (data) {
         io.emit('USER', data)
     });
+    socket.on('DISCONNECT', function (data) {
+        io.emit('DISCONNECT', data)
+    });
 });

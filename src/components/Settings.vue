@@ -11,6 +11,11 @@
           Message
           <swatches v-model="messageColor"/>
         </li>
+        <li>
+          <button class="btn --small" @click="leaveChat($event)">
+            Leave chat
+          </button>
+        </li>
       </ul>
     </div>
   </div>
@@ -36,6 +41,11 @@ export default {
     },
     messageColor(color) {
       this.$store.commit("updateMessageColor", color);
+    }
+  },
+  methods: {
+    leaveChat() {
+      this.$emit('leave-chat')
     }
   }
 };
