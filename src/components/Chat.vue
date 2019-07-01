@@ -1,20 +1,19 @@
 <template>
   <div @keyup.enter="sendMessage($event)" class="flex flex-col w-full h-full py-4 px-10">
     <div class="relative flex flex-row w-full h-full border border-apple-green">
-      <settings @leave-chat="disconnectUser($event)"/>
+      <settings @leave-chat="disconnectUser($event)" />
       <div class="flex flex-col w-4/5">
         <message v-for="(msg, index) in messages" :messageInfo="msg" :key="index"></message>
       </div>
-      <div class="w-1/5 py-2 border-l border-apple-green">Online
+      <div class="w-1/5 py-2 border-l border-apple-green">
+        Online
         <ul>
-          <li v-for="user of users" :key="user['.key']">
-            {{user.username}}
-          </li>
+          <li v-for="user of users" :key="user['.key']">{{user.username}}</li>
         </ul>
       </div>
     </div>
     <div class="flex flex-row w-full">
-      <base-input class="w-4/5 leading-normal text-4" v-model="message"/>
+      <base-input class="w-4/5 leading-normal text-4" v-model="message" />
       <button @click="sendMessage($event)" class="btn --primary --small">Send</button>
     </div>
   </div>
@@ -25,7 +24,7 @@ import socket from "../services/SocketService";
 import BaseInput from "./lib/BaseInput";
 import Message from "./Message";
 import Settings from "./Settings";
-import FirebaseService from "../services/FirebaseService"
+import FirebaseService from "../services/FirebaseService";
 
 export default {
   components: {
@@ -48,13 +47,18 @@ export default {
     this.socket.on("MESSAGE", data => {
       this.$store.commit("addMessage", data);
     });
-    
+
     this.socket.on("USER", user => {
       this.$store.dispatch("addUser", user);
     });
 
     this.socket.on("DISCONNECT", user => {
-      this.$store.dispatch('deleteUser', user)
+      this.$store
+        .dispatch("deleteUser", user)
+        .then(() => {
+          this.$router.push({ name: "login" });
+        })
+        .catch((err) => console.log(err));
     });
 
     this.socket.emit("ADD_USER", {
@@ -90,8 +94,8 @@ export default {
     },
     disconnectUser() {
       this.socket.emit("DISCONNECT", {
-        user: this.user,
-      })
+        user: this.user
+      });
     }
   },
   beforeDestroy() {

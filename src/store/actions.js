@@ -2,7 +2,7 @@ import FirebaseService from "../services/FirebaseService";
 
 const dbRef = FirebaseService.getDbRef();
 
-export const addUser = ({ commit }, payload) => {
+export const addUser = ({ commit }, payload) => {       
   const { username, email, nameColor, messageColor } = payload.user;
   const user = {
     username: username,
@@ -10,21 +10,15 @@ export const addUser = ({ commit }, payload) => {
     nameColor: nameColor,
     messageColor: messageColor
   }; 
-  dbRef.push({...user});
+
+  dbRef.child(username).set({ ...user });
   commit("addUser", user);
 };
 
 export const deleteUser = ({ commit }, payload) => {
   const user = payload.user;
-  console.log(user, 'user delete user action')
-  console.log(user.email, 'email')
-  // dbRef.orderByChild('email').equalTo(user.email).on("value", function (snapshot) {
-  //   console.log(snapshot, 'snapshot')
-  //   snapshot.forEach(function (data) {
-  //     console.log(data.key, 'data')
-  //     // dbRef.child(data.key).remove()
-  //   });
-  // });
+  dbRef.child(user.username).remove();
+  commit("deleteUser", user);
 };
 
 export const setUser = ({ commit }, user) => {

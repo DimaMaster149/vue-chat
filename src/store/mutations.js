@@ -9,7 +9,7 @@ export const addUser = (state, user) => {
 }
 
 export const deleteUser = (state, user) => {
-  state.users = state.users.filter(username => username !== user)
+  state.users = state.users.filter(username => username !== user.username)
 }
 
 export const clearUser = (state) => {
