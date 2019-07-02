@@ -1,7 +1,7 @@
 <template>
   <div @keyup.enter="sendMessage($event)" class="flex flex-col w-full h-full py-4 px-10">
     <div class="relative flex flex-row w-full h-full border border-apple-green">
-      <settings @leave-chat="disconnectUser($event)" />
+      <settings :username="user.username" @leave-chat="disconnectUser($event)" />
       <div class="flex flex-col w-4/5">
         <message v-for="(msg, index) in messages" :messageInfo="msg" :key="index"></message>
       </div>
@@ -48,23 +48,10 @@ export default {
       this.$store.commit("addMessage", data);
     });
 
-    this.socket.on("USER", user => {
-      this.$store.dispatch("addUser", user);
-    });
-
-    this.socket.on("DISCONNECT", user => {
+    this.socket.on("DISCONNECT", () => {
       this.$store
-        .dispatch("deleteUser", user)
-        .then(() => {
-          this.$router.push({ name: "login" });
-        })
-        .catch((err) => console.log(err));
+        .dispatch("logOut", {username: this.user.username})
     });
-
-    this.socket.emit("ADD_USER", {
-      user: this.user
-    });
-    //make an event to send all users after some updates
   },
   computed: {
     messages() {
@@ -72,14 +59,6 @@ export default {
     },
     user() {
       return this.$store.state.user;
-    }
-  },
-  watch: {
-    user: {
-      handler(user) {
-        this.$store.commit("updateUser", user);
-      },
-      deep: true
     }
   },
   methods: {

@@ -4,10 +4,6 @@ export const setUser = (state, user) => {
   state.user = user;
 }
 
-export const addUser = (state, user) => {
-  state.users.push(user)
-}
-
 export const deleteUser = (state, user) => {
   state.users = state.users.filter(username => username !== user.username)
 }
@@ -28,10 +24,8 @@ export const deleteMessage = (state, msg) => {
   state.messages = state.messages.filter(message => message.id !== msg.id)
 }
 
-export const updateUser = (state, user) => {
-  state.user = user;
-  let index = state.users.indexOf(u => u.email == user.email)
-  Vue.set(state.users, index, user)
+export const updateUser = (state, payload) => {
+  Vue.set(state.user, 'active', payload.active)
 }
 
 export const updateNameColor = (state, color) => {

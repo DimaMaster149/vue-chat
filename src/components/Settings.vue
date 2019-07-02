@@ -1,10 +1,10 @@
 <template>
   <div class="absolute top-0 right-0">
-    <span class="w-10">icon</span>
-    <div class="w-32 bg-white" v-show="show">
+    <base-icon @click="toggleShow($event)" class="absolute top-0 right-0 w-8 h-8 mr-1 -ml-1 cursor-pointer" icon="regular/cogs" />
+    <div class="w-24 pt-6 bg-white" v-show="show">
       <ul class="flex flex-col w-full h-full bg-white">
         <li>
-          Username
+          {{username}}
           <swatches v-model="nameColor"/>
         </li>
         <li>
@@ -12,7 +12,7 @@
           <swatches v-model="messageColor"/>
         </li>
         <li>
-          <button class="btn --small" @click="leaveChat($event)">
+          <button class="btn --secondary --small" @click="leaveChat($event)">
             Leave chat
           </button>
         </li>
@@ -23,16 +23,25 @@
 
 <script>
 import Swatches from "vue-swatches";
+import BaseIcon from "../components/lib/BaseIcon"
 export default {
   name: "Settings",
   components: {
-    Swatches
+    Swatches,
+    BaseIcon
+  },
+  props:{
+    username: {
+      type: String,
+      default: 'username'
+    }
   },
   data() {
     return {
       show: true,
       nameColor: "#000",
-      messageColor: "#000"
+      messageColor: "#000",
+      showSettings: false
     };
   },
   watch: {
@@ -46,6 +55,9 @@ export default {
   methods: {
     leaveChat() {
       this.$emit('leave-chat')
+    },
+    toggleShow() {
+      this.show = !this.show;
     }
   }
 };

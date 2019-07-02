@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from './views/Login.vue'
-import Chat from './components/Chat.vue'
+import Login from '../views/Login.vue'
+import Chat from '../components/Chat.vue'
+import { isAuthorized } from './guards/is-authorized';
 
 Vue.use(Router)
 
@@ -20,12 +21,13 @@ export default new Router({
     {
       path: '/chat',
       name: 'chat',
-      component: Chat
+      component: Chat,
+      beforeEnter: isAuthorized
     },
     {
       path: '/about',
       name: 'about',
-      component: () => import( /* webpackChunkName: "about" */ './views/About.vue')
+      component: () => import( /* webpackChunkName: "about" */ '../views/About.vue')
     }
   ]
 })
