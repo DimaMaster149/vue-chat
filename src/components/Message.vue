@@ -1,8 +1,13 @@
 <template>
-  <div>
-    {{message}}
-    <input type="text" v-model="message">
-    <button @click="showDetails($event)">Click</button>
+  <div class="flex flex-row w-full">
+    <div
+      class="w-1/5 max-w-20 px-2 text-right border-r border-apple-green"
+      :style="{'color': messageInfo.nameColor}"
+    >{{messageInfo.user}}:</div>
+    <div
+      class="w-4/5 pl-1 text-left"
+      :style="{'color': messageInfo.messageColor}"
+    >{{messageInfo.message}}</div>
   </div>
 </template>
 
@@ -10,20 +15,9 @@
 export default {
   name: "Message",
   props: {
-    name: {
-      type: String,
+    messageInfo: {
+      type: Object,
       required: true
-    }
-  },
-  data() {
-    return {
-      message: "Hello world"
-    };
-  },
-  methods: {
-    showDetails(event) {
-      console.log(event, "event");
-      this.$emit("show-details");
     }
   }
 };

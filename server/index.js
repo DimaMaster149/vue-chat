@@ -1,43 +1,18 @@
-let app = require('express')();
-let http = require('http').Server(app);
-let io = require('socket.io')(http);
+const express = require('express');
+const app = express();
 
-app.get('/', (req, res) => {
-    console.log(__dirname, 'dirname')
-    res.sendFile(__dirname + '/index.html')
+const server = app.listen(3001, function () {
+    console.log('server running on port 3001');
 });
 
 
-http.listen(3000, () => {
-    console.log('Listening on port *: 3000');
-});
+const io = require('socket.io')(server);
 
-io.on('connection', (socket) => {
-
-    socket.emit('connections', Object.keys(io.sockets.connected).length);
-
-    socket.on('disconnect', () => {
-        console.log("A user disconnected");
+io.on('connection', function (socket) {
+    socket.on('SEND_MESSAGE', function (data) {
+        io.emit('MESSAGE', data)
     });
-
-    socket.on('chat-message', (data) => {
-        socket.broadcast.emit('chat-message', (data));
+    socket.on('ADD_USER', function (data) {
+        io.emit('USER', data)
     });
-
-    socket.on('typing', (data) => {
-        socket.broadcast.emit('typing', (data));
-    });
-
-    socket.on('stopTyping', () => {
-        socket.broadcast.emit('stopTyping');
-    });
-
-    socket.on('joined', (data) => {
-        socket.broadcast.emit('joined', (data));
-    });
-
-    socket.on('leave', (data) => {
-        socket.broadcast.emit('leave', (data));
-    });
-
 });
