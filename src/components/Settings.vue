@@ -1,6 +1,10 @@
 <template>
   <div class="absolute top-0 right-0">
-    <base-icon @click="toggleShow($event)" class="absolute top-0 right-0 w-8 h-8 mr-1 -ml-1 cursor-pointer" icon="regular/cogs" />
+    <base-icon
+      class="absolute top-0 right-0 w-8 h-8 mr-1 -ml-1 cursor-pointer" 
+      @click="toggleShow($event)" 
+      icon="regular/cog" 
+    />
     <div class="w-24 pt-6 bg-white" v-show="show">
       <ul class="flex flex-col w-full h-full bg-white">
         <li>
@@ -33,20 +37,20 @@ export default {
   props:{
     username: {
       type: String,
-      default: 'username'
+      default: 'username',
     }
   },
   data() {
     return {
-      show: true,
-      nameColor: "#000",
-      messageColor: "#000",
-      showSettings: false
+      show: false,
+      nameColor: window.localStorage.getItem('nameColor'),
+      messageColor: window.localStorage.getItem('messageColor')
     };
   },
   watch: {
     nameColor(color) {
       this.$store.commit("updateNameColor", color);
+      
     },
     messageColor(color) {
       this.$store.commit("updateMessageColor", color);

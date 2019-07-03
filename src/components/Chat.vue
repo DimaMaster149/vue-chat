@@ -8,7 +8,9 @@
       <div class="w-1/5 py-2 border-l border-apple-green">
         Online
         <ul>
-          <li v-for="user of users" :key="user['.key']">{{user.username}}</li>
+          <li v-for="user of onlineUsers" :key="user['.key']">
+            {{user.username}}
+          </li>
         </ul>
       </div>
     </div>
@@ -52,6 +54,9 @@ export default {
       this.$store
         .dispatch("logOut", {username: this.user.username})
     });
+    this.$store.commit('updateNameColor', window.localStorage.getItem('nameColor'));
+    this.$store.commit('updateMessageColor', window.localStorage.getItem('messageColor'));
+
   },
   computed: {
     messages() {
@@ -59,6 +64,9 @@ export default {
     },
     user() {
       return this.$store.state.user;
+    },
+    onlineUsers() {
+      return this.users.filter(user => user.active)
     }
   },
   methods: {

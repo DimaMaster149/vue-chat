@@ -12,7 +12,7 @@ export const signUp = ({ commit }, payload) => {
     username: username,
     email: email,
     password: hashPassword,
-    active: false
+    active: true
   };
 
   dbRef.child(username).set({ ...user });
