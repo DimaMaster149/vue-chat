@@ -2,11 +2,11 @@
   <div @keyup.enter="sendMessage($event)" class="flex flex-col w-full h-full py-4 px-10">
     <div class="relative flex flex-row w-full h-full border border-apple-green">
       <settings :username="user.username" @leave-chat="disconnectUser($event)" />
-      <div class="flex flex-col w-4/5">
+      <div class="flex flex-col w-5/6">
         <message v-for="(msg, index) in messages" :messageInfo="msg" :key="index"></message>
       </div>
-      <div class="w-1/5 py-2 border-l border-apple-green">
-        Online
+      <div class="w-1/6 py-2 pl-3 text-left border-l border-apple-green">
+        Online: 
         <ul>
           <li v-for="user of onlineUsers" :key="user['.key']">
             {{user.username}}
@@ -49,14 +49,9 @@ export default {
     this.socket.on("MESSAGE", data => {
       this.$store.commit("addMessage", data);
     });
-
-    this.socket.on("DISCONNECT", () => {
-      this.$store
-        .dispatch("logOut", {username: this.user.username})
-    });
-    this.$store.commit('updateNameColor', window.localStorage.getItem('nameColor'));
-    this.$store.commit('updateMessageColor', window.localStorage.getItem('messageColor'));
-
+    window.addEventListener('unload', () => {
+      this.disconnectUser();
+    })
   },
   computed: {
     messages() {
@@ -67,7 +62,7 @@ export default {
     },
     onlineUsers() {
       return this.users.filter(user => user.active)
-    }
+    },
   },
   methods: {
     sendMessage() {
@@ -80,9 +75,7 @@ export default {
       this.message = "";
     },
     disconnectUser() {
-      this.socket.emit("DISCONNECT", {
-        user: this.user
-      });
+      this.$store.dispatch("logOut", { username: this.user.username})
     }
   },
   beforeDestroy() {

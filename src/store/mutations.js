@@ -1,8 +1,8 @@
 import Vue from "vue";
 
 export const setUser = (state, user) => {
-  window.localStorage.setItem("user", JSON.stringify({...user, active: true}));
-  state.user = {...user, active: true};
+  window.localStorage.setItem("user", JSON.stringify(user));
+  state.user = user;
 };
 
 export const deleteUser = (state, user) => {
