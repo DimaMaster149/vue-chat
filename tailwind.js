@@ -598,6 +598,7 @@ module.exports = {
         '60': '15rem',
         '64': '16rem',
         '69': '17.25rem',
+        '80vh': '80vh',
         full: '100%',
         screen: '100vh',
     },

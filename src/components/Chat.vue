@@ -2,7 +2,7 @@
   <div @keyup.enter="sendMessage($event)" class="flex flex-col w-full h-full py-4 px-10">
     <div class="relative flex flex-row w-full h-full border border-apple-green">
       <settings :username="user.username" @leave-chat="disconnectUser($event)" />
-      <div class="flex flex-col w-5/6">
+      <div class="flex flex-col w-5/6 min-h-80vh">
         <message v-for="(msg, index) in messages" :messageInfo="msg" :key="index"></message>
       </div>
       <div class="w-1/6 py-2 pl-3 text-left border-l border-apple-green">

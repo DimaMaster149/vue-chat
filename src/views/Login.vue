@@ -1,39 +1,41 @@
 <template>
-  <div @keyup.enter="()=> isSignUp ? signUp($event) : logIn($event)" 
+  <div
+    @keyup.enter="()=> isSignUp ? signUp($event) : logIn($event)"
     class="flex justify-center items-center w-full h-full"
   >
     <div
       class="flex flex-col w-84 h-full mt-20 px-4 py-8 border border-grey-darker-50 shadow-card-hover"
     >
       <template v-if="isSignUp">
-        <base-input 
-          class="my-1" 
-          min="2"
-          label="Username" 
-          :error="errors.username" 
-          v-model="username" 
-        />
-        <base-input 
+        <base-input
           class="my-1"
-          min="4" 
-          type="email" label="Email" 
-          :error="errors.email" 
-          v-model="email" 
+          min="2"
+          label="Username"
+          :error="errors.username"
+          v-model="username"
         />
-        <base-input 
+        <base-input
+          class="my-1"
+          min="4"
+          type="email"
+          label="Email"
+          :error="errors.email"
+          v-model="email"
+        />
+        <base-input
           class="my-1"
           type="password"
           min="4"
           label="Password"
           :error="errors.password"
-          v-model="password" 
+          v-model="password"
         />
         <base-input
           class="my-1"
           type="password"
           min="4"
           label="Confirm password"
-          :error="errors.password"
+          :error="errors.confirmPassword"
           v-model="confirmPassword"
         />
         <span
@@ -59,7 +61,8 @@
 <script>
 import BaseInput from "../components/lib/BaseInput";
 import FirebaseService from "../services/FirebaseService";
-import Vue from 'vue'
+import Vue from "vue";
+import { required, minLength, sameAs } from "vuelidate/lib/validators";
 
 export default {
   components: {
@@ -81,7 +84,8 @@ export default {
   },
   methods: {
     signUp() {
-      if(!this.checkForm()) {
+      if(this.$v.$invalid) {
+        this.validateForm()
         return
       }
       this.$store
@@ -109,27 +113,54 @@ export default {
           this.$router.push({ name: "chat" });
         });
     },
-    checkForm() {
+    validateForm() {
       this.errors = {};
-      if (this.password !== this.confirmPassword) {
-        Vue.set(this.errors, 'password', "Passwords must match")
+      if (!this.$v.$invalid) {
+        return false;
       }
-      if (this.password.length < 4 || this.confirmPassword.length < 4 ) {
-        Vue.set(this.errors, 'password', "Password length must be at least 4 symbols")
+      if (this.$v.username.$invalid) {
+        Vue.set(
+          this.errors,
+          "username",
+          "username is required with min 3 as min lehgth"
+        );
       }
-      if(this.username.length < 2) {
-        Vue.set(this.errors, 'username', "Username length should be at least 3 symbols")
+      if (this.$v.email.$invalid) {
+        Vue.set(this.errors, "email", "email is required");
       }
-      if (this.users.findIndex(user => user.email === this.email) != -1) {
-        Vue.set(this.errors, 'email', "This email is already exist")
+      if (this.$v.password.$invalid) {
+        Vue.set(
+          this.errors,
+          "password",
+          "password should contains at least 4 symbols"
+        );
       }
-      if (this.email.length == 0) {
-        Vue.set(this.errors, 'email', "Email is required")
+      if (this.$v.confirmPassword.$invalid) {
+        Vue.set(
+          this.errors,
+          "confirmPassword",
+          "should be the same as password"
+        );
       }
-      if (this.users.findIndex(user => user.username === this.username) != -1) {
-        Vue.set(this.errors, 'username', "This username is already taken")
-      }
-      return !Object.keys(this.errors).length > 0
+      return true;
+    }
+  },
+  validations: {
+    username: {
+      required,
+      minLength: minLength(3)
+    },
+    email: {
+      required
+    },
+    password: {
+      required,
+      minLength: minLength(4)
+    },
+    confirmPassword: {
+      required,
+      minLength: minLength(4),
+      sameAsPassword: sameAs("password")
     }
   }
 };
