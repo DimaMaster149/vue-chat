@@ -60,6 +60,7 @@ module.exports = {
   
       'red-dark': 'rgb(184, 0, 54)',
       red: 'rgb(255, 37, 47)', // #ff252f
+      'orange-dark': 'rgb(223, 94, 69)', // # #df5e45
   
       yellow: 'rgb(230, 170, 40)', // #e6aa28
       'yellow-darker': 'rgb(204, 150, 35)', // #cc9623

@@ -8,16 +8,18 @@
     </label>
     <input ref="input"
       class="pl-1 border border-cyan-dark outline-none"
+      :class="{'border-orange-dark': !!error}"
       :placeholder="label"
       @input="$emit('input', $event.target.value);"
       :type="type"
       :disabled="disabled"
       :required='required'
-      :class="{ error }"
       :value="value"
+      :minlength="min"
+      :maxlength="max"
     >
     <transition name="slide">
-      <p v-show="error" class="form__error">{{ error }}</p>
+      <p v-show="error" class="pt-1 text-5 text-orange-dark text-left">{{ error }}</p>
     </transition> 
   </div>
 </template>
@@ -54,6 +56,14 @@ export default {
       type: String,
       required: false
     },
+    min: {
+      type: [String, Number],
+      required: false
+    },
+    max: {
+      type: [String, Number],
+      required: false
+    }
   }
 };
 </script>

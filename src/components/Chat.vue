@@ -39,7 +39,7 @@ export default {
       users: [],
       message: "",
       socket: socket,
-      dbRef: FirebaseService.getDbRef()
+      dbRef: FirebaseService.getDbRef(),
     };
   },
   firebase: {
@@ -78,8 +78,5 @@ export default {
       this.$store.dispatch("logOut", { username: this.user.username})
     }
   },
-  beforeDestroy() {
-    this.disconnectUser();
-  }
 };
 </script>

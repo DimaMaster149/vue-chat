@@ -1,7 +1,7 @@
 <template>
   <div class="absolute top-0 right-0">
     <base-icon
-      class="absolute top-0 right-0 w-8 h-8 mr-1 -ml-1 cursor-pointer"
+      class="setting-cog absolute top-0 right-0 w-8 h-8 mr-1 -ml-1 cursor-pointer"
       @click="toggleShow($event)"
       icon="regular/cog"
     />
