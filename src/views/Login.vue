@@ -12,6 +12,7 @@
           min="2"
           label="Username"
           :error="errors.username"
+          @blur="validateForm('username')"
           v-model="username"
         />
         <base-input
@@ -20,6 +21,7 @@
           type="email"
           label="Email"
           :error="errors.email"
+          @blur="validateForm('email')"
           v-model="email"
         />
         <base-input
@@ -28,6 +30,7 @@
           min="4"
           label="Password"
           :error="errors.password"
+          @blur="validateForm('password')"
           v-model="password"
         />
         <base-input
@@ -36,6 +39,7 @@
           min="4"
           label="Confirm password"
           :error="errors.confirmPassword"
+          @blur="validateForm('confirmPassword')"
           v-model="confirmPassword"
         />
         <span
@@ -85,7 +89,6 @@ export default {
   methods: {
     signUp() {
       if(this.$v.$invalid) {
-        this.validateForm()
         return
       }
       this.$store
@@ -113,36 +116,26 @@ export default {
           this.$router.push({ name: "chat" });
         });
     },
-    validateForm() {
+    validateForm(props) {
       this.errors = {};
-      if (!this.$v.$invalid) {
-        return false;
+      switch(props) {
+        case 'username':
+          if (this.$v.username.$invalid) 
+            Vue.set(this.errors, "username", "username is required and should be at least 3 symbols");
+          break;
+        case 'email':
+          if (this.$v.email.$invalid)
+            Vue.set(this.errors, "email", "email is required");
+          break;
+        case 'password':
+          if (this.$v.password.$invalid)
+            Vue.set(this.errors, "password", "password should contains at least 4 symbols");
+          break;
+        case 'confirmPassword':
+          if (this.$v.confirmPassword.$invalid)
+            Vue.set(this.errors, "confirmPassword", "should be the same as password");
+          break;
       }
-      if (this.$v.username.$invalid) {
-        Vue.set(
-          this.errors,
-          "username",
-          "username is required with min 3 as min lehgth"
-        );
-      }
-      if (this.$v.email.$invalid) {
-        Vue.set(this.errors, "email", "email is required");
-      }
-      if (this.$v.password.$invalid) {
-        Vue.set(
-          this.errors,
-          "password",
-          "password should contains at least 4 symbols"
-        );
-      }
-      if (this.$v.confirmPassword.$invalid) {
-        Vue.set(
-          this.errors,
-          "confirmPassword",
-          "should be the same as password"
-        );
-      }
-      return true;
     }
   },
   validations: {

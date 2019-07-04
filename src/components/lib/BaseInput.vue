@@ -11,6 +11,7 @@
       :class="{'border-orange-dark': !!error}"
       :placeholder="label"
       @input="$emit('input', $event.target.value);"
+      @blur="$emit('blur')"
       :type="type"
       :disabled="disabled"
       :required='required'
