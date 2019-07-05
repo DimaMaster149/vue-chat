@@ -13,7 +13,7 @@
           label="Username"
           :error="errors.username"
           @blur="validateForm('username')"
-          v-model="username"
+          v-model="$v.username.$model"
         />
         <base-input
           class="my-1"
@@ -22,7 +22,7 @@
           label="Email"
           :error="errors.email"
           @blur="validateForm('email')"
-          v-model="email"
+          v-model="$v.email.$model"
         />
         <base-input
           class="my-1"
@@ -31,7 +31,7 @@
           label="Password"
           :error="errors.password"
           @blur="validateForm('password')"
-          v-model="password"
+          v-model="$v.password.$model"
         />
         <base-input
           class="my-1"
@@ -40,7 +40,7 @@
           label="Confirm password"
           :error="errors.confirmPassword"
           @blur="validateForm('confirmPassword')"
-          v-model="confirmPassword"
+          v-model="$v.confirmPassword.$model"
         />
         <span
           class="text-left cursor-pointer"
@@ -49,9 +49,22 @@
         <button class="btn --cta mt-4" @click="signUp($event)">Sign up</button>
       </template>
       <template v-else>
-        <base-input class="my-1" label="Username" v-model="username" />
-        <base-input class="my-1" type="password" label="Password" v-model="password" />
-        <span v-if="$route.query.error" class="text-left text-red-500 text-6">{{$route.query.error}}</span>
+        <base-input
+          class="my-1"
+          @blur="validateForm('username')"
+          :error="errors.username"
+          label="Username"
+          v-model="$v.username.$model"
+        />
+        <base-input
+          class="my-1"
+          min="4"
+          @blur="validateForm('password')"
+          :error="errors.password"
+          type="password"
+          label="Password"
+          v-model="$v.password.$model"
+        />
         <span
           class="text-left cursor-pointer"
           @click="()=> isSignUp=true"
@@ -88,8 +101,8 @@ export default {
   },
   methods: {
     signUp() {
-      if(this.$v.$invalid) {
-        return
+      if (this.$v.$invalid) {
+        return;
       }
       this.$store
         .dispatch("signUp", {
@@ -107,6 +120,10 @@ export default {
         });
     },
     logIn() {
+      // if(this.$v.username.$invalid || this.$v.password.$invalid) {
+      //   return
+      // }     
+      console.log(this.$v.$invalid, 'wtf')
       this.$store
         .dispatch("logIn", {
           username: this.username,
@@ -116,24 +133,37 @@ export default {
           this.$router.push({ name: "chat" });
         });
     },
-    validateForm(props) {
+    validateForm(prop) {
+      console.log('validate', prop)
       this.errors = {};
-      switch(props) {
-        case 'username':
-          if (this.$v.username.$invalid) 
-            Vue.set(this.errors, "username", "username is required and should be at least 3 symbols");
+      switch (prop) {
+        case "username":
+          if (this.$v.username.$invalid)
+            Vue.set(
+              this.errors,
+              "username",
+              "username is required and should be at least 3 symbols"
+            );
           break;
-        case 'email':
+        case "email":
           if (this.$v.email.$invalid)
             Vue.set(this.errors, "email", "email is required");
           break;
-        case 'password':
+        case "password":
           if (this.$v.password.$invalid)
-            Vue.set(this.errors, "password", "password should contains at least 4 symbols");
+            Vue.set(
+              this.errors,
+              "password",
+              "password should contains at least 4 symbols"
+            );
           break;
-        case 'confirmPassword':
+        case "confirmPassword":
           if (this.$v.confirmPassword.$invalid)
-            Vue.set(this.errors, "confirmPassword", "should be the same as password");
+            Vue.set(
+              this.errors,
+              "confirmPassword",
+              "should be the same as password"
+            );
           break;
       }
     }
