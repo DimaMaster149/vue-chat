@@ -120,10 +120,9 @@ export default {
         });
     },
     logIn() {
-      // if(this.$v.username.$invalid || this.$v.password.$invalid) {
-      //   return
-      // }     
-      console.log(this.$v.$invalid, 'wtf')
+      if (this.$v.username.$invalid || this.$v.password.$invalid) {
+        return;
+      }
       this.$store
         .dispatch("logIn", {
           username: this.username,
@@ -134,7 +133,7 @@ export default {
         });
     },
     validateForm(prop) {
-      console.log('validate', prop)
+      console.log("validate", prop);
       this.errors = {};
       switch (prop) {
         case "username":
