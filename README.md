@@ -2,28 +2,18 @@
 
 ## Project setup
 ```
-npm install
+Run `npm install` in the root folder and then `npm install` in "server" folder
 ```
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
+To start server for WebSocket run command: `nodemon index` in server folder.
+To start client run command: `npm run serve` in the rooit folder
 ```
 
 ### Compiles and minifies for production
 ```
 npm run build
 ```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
