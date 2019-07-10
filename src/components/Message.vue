@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row w-full">
     <div
-      class="w-1/5 max-w-20 px-2 text-right border-r border-apple-green"
+      class="w-1/5 max-w-20 px-2 text-right"
       :style="{'color': messageInfo.nameColor}"
     >{{messageInfo.user}}:</div>
     <div
