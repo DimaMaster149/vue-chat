@@ -8,7 +8,6 @@ const dbRef = FirebaseService.getDbRef();
 export const signUp = ({ commit }, payload) => {
   const { username, email, nameColor, messageColor, password } = payload;
   let hashPassword = passwordHash.generate(password);
-  console.log(email, 'email signup')
   const user = {
     username: username,
     email: email,
@@ -30,7 +29,6 @@ export const logIn = ({ commit }, payload) => {
   firebase.database().ref('/users/' + payload.username).once('value').then((snapshot) => {
     let user = snapshot.val() || null;
     if (user && passwordHash.verify(payload.password, user.password)) {
-      console.log(user, 'user')
       commit("setUser", {
         username: user.username,
         email: user.email,

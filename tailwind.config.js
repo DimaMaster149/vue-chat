@@ -9,7 +9,7 @@ module.exports = {
       md: '768px',
       lg: '1024px',
       xl: '1280px',
-      xxl: '1440px'
+      fullhd: '1440px'
     },
     colors: {
       transparent: 'transparent',
@@ -60,6 +60,7 @@ module.exports = {
   
       'red-dark': 'rgb(184, 0, 54)',
       red: 'rgb(255, 37, 47)', // #ff252f
+      'orange-dark': 'rgb(223, 94, 69)', // # #df5e45
   
       yellow: 'rgb(230, 170, 40)', // #e6aa28
       'yellow-darker': 'rgb(204, 150, 35)', // #cc9623
@@ -96,7 +97,7 @@ module.exports = {
       '56': '14rem',
       '64': '16rem',
     },
-    backgroundColor: theme => theme('colors'),
+    backgroundColor: theme => theme('colors'), // bg-{color}
     backgroundPosition: {
       bottom: 'bottom',
       center: 'center',
@@ -108,7 +109,7 @@ module.exports = {
       'right-top': 'right top',
       top: 'top',
     },
-    backgroundSize: {
+    backgroundSize: { // bg-{size}
       auto: 'auto',
       cover: 'cover',
       contain: 'contain',
@@ -117,7 +118,7 @@ module.exports = {
       ...theme('colors'),
       default: theme('colors.gray.300', 'currentColor'),
     }),
-    borderRadius: {
+    borderRadius: { // rounded{-side?}{-size}
       none: '0',
       sm: '.125rem', // 2px
       normal: '.1875rem', // 3px
@@ -125,7 +126,7 @@ module.exports = {
       lg: '.5rem', // 8px
       full: '9999px',
     },
-    borderWidth: {
+    borderWidth: { // border{-side?}{-width?}
       default: '1px',
       '0': '0',
       '2': '2px',
@@ -133,7 +134,7 @@ module.exports = {
       '8': '8px',
       '16': '16px',
   },
-    boxShadow: {
+    boxShadow: { // shadow-{-size?}
       'button-hover': '0 5px 15px -2px rgba(0, 22, 39, 0.35)',
       card: '0 1px 2px 0 rgba(79, 109, 122, 0.05), 0 1px 3px 0 rgba(79, 109, 122, 0.1)',
       'card-hover':
@@ -230,38 +231,6 @@ module.exports = {
     height: theme => ({
       auto: 'auto',
       ...theme('spacing'),
-      px: '1px',
-      '1': '0.25rem',
-      '2': '0.5rem',
-      '2-1/2': '0.625em',
-      '3': '0.75rem',
-      '4': '1rem', // 16px
-      '4-1/2': '1.125rem', // 18px
-      '5': '1.25rem', // 20px
-      '6': '1.5rem', // 24px
-      '7': '1.75rem', // 28px
-      '7-1/2': '1.875rem', // 30px
-      '8': '2rem', // 32px
-      '9': '2.25rem', // 36px
-      '10': '2.5rem', // 40px
-      '11': '2.75rem',
-      '12': '3rem', // 48px
-      '13': '3.25rem', // 52px
-      '14': '3.5rem', // 56px
-      '16': '4rem',
-      '18': '4.5rem',
-      '19': '4.75rem',
-      '20': '5rem', // 80px
-      '22': '5.5rem', // 88px
-      '24': '6rem',
-      '26': '6.5rem',
-      '32': '8rem',
-      '35': '8.75rem', // 140px
-      '39-2/5': '9.875rem',
-      '42': '10.5rem', // 168px
-      '48': '12rem',
-      '60': '15rem',
-      '64': '16rem',
       '76-1/2': '19.125rem',
       '85': '21.25rem', // 340px
       full: '100%',
@@ -296,27 +265,6 @@ module.exports = {
       auto: 'auto',
       ...theme('spacing'),
       ...negative(theme('spacing')),
-      px: '1px',
-      '0': '0',
-      '0-3/4': '0.2rem',
-      '1': '0.25rem',
-      '1-1/2': '0.375rem',
-      '2': '0.5rem', // 8px
-      '2-1/2':'0.625rem', // 10px
-      '3': '0.75rem', // 12px
-      '4': '1rem', // 16px
-      '5': '1.25rem',
-      '6': '1.5rem',
-      '7': '1.75rem', // 28px
-      '8': '2rem', // 32px
-      '10': '2.5rem',
-      '12': '3rem',
-      '14': '3.5rem', // 56px
-      '15': '3.75rem', // 60px
-      '16': '4rem', // 64px
-      '20': '5rem',
-      '24': '6rem',
-      '32': '8rem', // 128px
     }),
     maxHeight: {
       full: '100%',
@@ -331,6 +279,7 @@ module.exports = {
     },
     minHeight: {
       '0': '0',
+      '80vh': '80vh',
       full: '100%',
       screen: '100vh',
     },
@@ -357,7 +306,7 @@ module.exports = {
       'right-top': 'right top',
       top: 'top',
     },
-    opacity: {
+    opacity: { // opacity-{size}
       '0': '0',
       '25': '0.25',
       '50': '0.5',
@@ -383,30 +332,6 @@ module.exports = {
     },
     padding: theme => ({
       ...theme('spacing'),
-      px: '1px',
-      '0': '0',
-      '1': '0.25rem',
-      '1-1/2': '0.375rem',
-      '2': '0.5rem', // 8px
-      '2-1/2': '0.625rem', // 10.8px
-      '3': '0.75rem', // 12px
-      '4': '1rem', // 16px
-      '5': '1.25rem',
-      '6': '1.5rem',
-      '7': '1.75rem',
-      '8': '2rem',
-      '9-1/2': '2.125rem', // 38px
-      '10': '2.5rem',
-      '11': '2.75rem',
-      '12': '3rem',
-      '13': '3.25rem',
-      '14': '3.5rem',
-      '15': '3.75rem',
-      '15-1/2': '3.875rem',
-      '16': '4rem',
-      '20': '5rem',
-      '24': '6rem',
-      '32': '8rem',
     }),
     stroke: {
       current: 'currentColor',
@@ -415,36 +340,6 @@ module.exports = {
     width: theme => ({
       auto: 'auto',
       ...theme('spacing'),
-      px: '1px',
-      '1': '0.25rem',
-      '2': '0.5rem',
-      '3': '0.75rem',
-      '3-3/4': '0.9rem',
-      '4': '1rem', // 16px
-      '4-1/2': '1.125rem', // 18px
-      '5': '1.25rem', // 20px
-      '6': '1.5rem', // 24px
-      '7': '1.75rem', // 28px
-      '8': '2rem', // 32px
-      '9': '2.25rem', // 36px
-      '10': '2.5rem', // 40px
-      '10-1/2': '2.625rem', // 42px
-      '11':'2.75rem',
-      '12': '3rem', // 48px
-      '13': '3.25rem', // 52px
-      '14': '3.5rem', // 56px
-      '16': '4rem', // 64px
-      '18': '4.5rem', // 72px
-      '20': '5rem',
-      '24': '6rem', // 96px
-      '26': '6.5rem', // 104px
-      '28': '7rem',
-      '32': '8rem',
-      '35': '8.75rem', // 140px
-      '39-2/5': '9.875rem',
-      '48': '12rem',
-      '56': '14rem',
-      '64': '16rem',
       '68': '17rem',
       '80': '20rem',
       '84': '21rem', // 336px
@@ -463,7 +358,7 @@ module.exports = {
       full: '100%',
       screen: '100vw',
     }),
-    zIndex: {
+    zIndex: { // z-{size}
       auto: 'auto',
       '0': '0',
       '10': '10',

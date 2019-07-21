@@ -1,3 +1,13 @@
 .icon-component {
   @apply w-3 h-3 ml-4 text-grey-darker-40;
 }
+
+.setting-cog {
+  transition: 0.75s;
+}
+
+.setting-cog:hover {
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg)
+}
