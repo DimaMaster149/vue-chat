@@ -231,6 +231,7 @@ module.exports = {
     height: theme => ({
       auto: 'auto',
       ...theme('spacing'),
+      '7-1/2': '1.875rem',
       '76-1/2': '19.125rem',
       '85': '21.25rem', // 340px
       full: '100%',
@@ -331,6 +332,7 @@ module.exports = {
       '12': '12',
     },
     padding: theme => ({
+      '7': '1.75rem',
       ...theme('spacing'),
     }),
     stroke: {
